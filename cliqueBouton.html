@@ -1,0 +1,116 @@
+<!--
+        auteur : Dorian Wontcheu 
+        date : 2023
+       
+-->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Click Bouton</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style type="text/css">
+        #main {
+            background-color: silver;
+            height: 900px;
+        }
+
+        #btnClick {
+            margin: 50px;
+        }
+
+        p {
+            margin: 50px 0;
+            font-size: 1.5em;
+        }
+
+        h1 {
+            margin-top: 1cm;
+        }
+
+        ol {
+            text-align: center;
+            list-style-position: inside;
+            font-weight: bold;
+            font-size: 20px;
+            
+        }
+    </style>
+    <script>
+        const NBRE_MAX_CLICK = 20;
+        let nombreClick = 0;
+        let tempsDebut;
+        let tabNbreMili = [];
+        let i = 0;
+        function CapClick(){
+            if (nombreClick == 0){
+                tempsDebut = new Date();
+            }
+            nombreClick++;
+            document.querySelector("#infoClick").innerHTML = nombreClick;
+            if (nombreClick == NBRE_MAX_CLICK){
+                
+                let liste = document.querySelector("ol ");
+
+                let tempsFin = new Date();
+                document.querySelector("#btnClick").disabled = true;
+                tabNbreMili[i] = tempsFin - tempsDebut;
+
+                document.querySelector("#message").innerHTML = "Tu as clique 20 fois en " + tabNbreMili[i] + " millisecondes ";
+                
+                
+                liste.innerHTML += `<li>  ${tabNbreMili[i]}  </li>`;
+                i++;
+               
+
+            }
+            
+        }
+
+        function Replay(){
+            nombreClick = 0;
+            document.querySelector("#infoClick").innerHTML = nombreClick;
+            document.querySelector("#btnClick").disabled = false;
+            document.querySelector("#message").innerHTML = " ";
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div id="main" class="col-10">
+
+                <form name="frmClique">
+                    <div class="text-center">
+                        <h1>Le clique rapide!!</h1>
+                        <p>Tu dois cliquer 20 fois le plus rapidement possible
+                        </p>
+                        <input type="button" class="btn btn-primary btn-lg" value="Clique Moi!" id="btnClick"
+                            name="btnClick" onclick="CapClick();" />
+                        <br />
+                        <input type="button" value="Rejouer" class="btn btn-success btn-lg" id="btnRejouer"
+                            name="btnRejouer" onclick="Replay();" />
+                        <p># de cliques : <span id="infoClick">0</span></p>
+                        <h3 id="message"></h3>
+
+                    </div>
+                </form>
+                <br>
+                <div class ="stats">
+                 <ol>   
+                 </ol>
+                </div>
+             
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>
